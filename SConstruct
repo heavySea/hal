@@ -106,6 +106,8 @@ for config in configs:
   elif chip == 'vivosoc3_1':
     append_file('hal/chips/vivosoc3_1/fll.h')
     append_file('hal/chips/vivosoc3_1/freq.h')
+  elif chip == 'stellissimo':
+    append_file('hal/pwm/pwm_v1.h')
 
 
 targets = []
