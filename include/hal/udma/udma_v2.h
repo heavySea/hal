@@ -180,6 +180,11 @@ static inline void plp_udma_enqueue(unsigned channelBase, unsigned int l2Addr, u
   ARCHI_WRITE(channelBase, UDMA_CHANNEL_CFG_OFFSET, cfg | UDMA_CHANNEL_CFG_EN);
 }
 
+static inline void plp_udma_clr(unsigned channelBase)
+{
+  ARCHI_WRITE(channelBase, UDMA_CHANNEL_CFG_OFFSET, UDMA_CHANNEL_CFG_CLEAR);
+}
+
 static inline int plp_udma_busy(unsigned channelOffset)
 {
   return (pulp_read32(channelOffset + UDMA_CHANNEL_CFG_OFFSET) & UDMA_CHANNEL_CFG_EN);
@@ -205,7 +210,7 @@ static inline unsigned int hal_udma_periph_base(int id) {
   return ARCHI_SOC_PERIPHERALS_ADDR + ARCHI_UDMA_OFFSET + UDMA_PERIPH_OFFSET(id);
 }
 
-static inline unsigned int hal_udma_channel_base(int id) {
+static inline __attribute__((always_inline)) unsigned int hal_udma_channel_base(int id) {
   return ARCHI_SOC_PERIPHERALS_ADDR + ARCHI_UDMA_OFFSET + UDMA_PERIPH_OFFSET(id>>1) + UDMA_CHANNEL_OFFSET(id&1);
 }
 
